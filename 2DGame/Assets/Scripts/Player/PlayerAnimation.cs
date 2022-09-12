@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerAnimation : MonoBehaviour
 {
+    private const string IsRunning = "Running";
+    private const string IsJumping = "Jumping";
+
+
     private Animator _animator;
     void Start()
     {
@@ -12,11 +17,11 @@ public class PlayerAnimation : MonoBehaviour
 
     public void Run(bool isRunning)
     {
-        _animator.SetBool("Running", isRunning);
+        _animator.SetBool(IsRunning, isRunning);
     }
 
     public void Jump(bool iJumping)
     {
-        _animator.SetBool("Jumping", iJumping);
+        _animator.SetBool(IsJumping, iJumping);
     }
 }

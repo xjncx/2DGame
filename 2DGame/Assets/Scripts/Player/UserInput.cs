@@ -4,6 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
 
+
+//3. _animator.SetBool("Running", isRunning); Рекомендуется использовать хеши или константы при обращении к аниматору. Сделать это можно, рассчитав хеш через Animator.StringToHash. Затем передаем хеш вместо строкового литерала. По этому поводу есть рекомендация: https://agava.notion.site/40e2798c8c32487583180b03cbc5fccd но там пока что не добавлен пункт о хешах.
+
+
 public class UserInput : MonoBehaviour
 {
     private PlayerMovement _playerMovement;

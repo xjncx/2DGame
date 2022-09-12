@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Transform))]
+[RequireComponent(typeof(PlayerAnimation))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement vars")]
@@ -12,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerAnimation _playerAnimation;
     private Rigidbody2D _rb2d;
     private bool _isMovingForward;
+    private float _minPlayerSpeed = 0.01f;
+    private float _minPlayerVelocity = 0.1f;
 
     private void Awake()
     {
@@ -23,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_rb2d.velocity.y <= 0.1)
+        if (_rb2d.velocity.y <= _minPlayerVelocity)
         {
             _playerAnimation.Jump(false);
         }
@@ -36,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
             Jump();
         }
 
-        if (Mathf.Abs(direction) > 0.01f)
+        if (Mathf.Abs(direction) > _minPlayerSpeed)
         {
             _playerAnimation.Run(true);
             HorizontalMovement(direction);
