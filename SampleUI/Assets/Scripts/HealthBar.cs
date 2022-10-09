@@ -7,20 +7,25 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Health _health;
     [SerializeField] private Slider _slider;
-
-    private float _sliderSmoothVelocity = 200f;
-    private float  _currentVelocity = 0.0f;
-    private float _currentHealth;
+    private float _sliderSmoothVelocity = 0.5f;
 
     private void Start()
     {
         _slider.maxValue = _health.Maximum;
-        _slider.value = _health.Current;     
+        _slider.value = _health.Current;
     }
 
-    private void Update()
+    public void StartChangeBar()
     {
-        _currentHealth = Mathf.SmoothDamp(_slider.value, _health.Current, ref _currentVelocity, _sliderSmoothVelocity * Time.deltaTime);
-        _slider.value = _currentHealth;
+        var ChangeBarJob = StartCoroutine(ChangeBarView());
+    }
+
+    private IEnumerator ChangeBarView()
+    {
+        while (_slider.value != _health.Current)
+        {
+            _slider.value = Mathf.MoveTowards(_slider.value, _health.Current, _health.Points / _sliderSmoothVelocity * Time.deltaTime);
+            yield return null;
+        }
     }
 }

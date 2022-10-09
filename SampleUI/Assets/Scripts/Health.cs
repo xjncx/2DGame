@@ -6,17 +6,33 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float _maximum;
     [SerializeField] private float _current;
-
+    [SerializeField] private float _minimum;
+    [SerializeField] private float _points;
     public float Maximum => _maximum;
     public float Current => _current;
-
-    public void IncreaseHealth(float points)
+    public float Points => _points;
+    public void Heal()
     {
-        _current += points;
+        if (_current + _points <= _maximum)
+        {
+            _current += _points;
+        }
+        else
+        {
+            _current = _maximum;
+        }
+
     }
 
-    public void DecreaseHealth(float points)
+    public void Damage()
     {
-        _current -= points;
+        if (_current - _points <= _minimum)
+        {
+            _current = _minimum;
+        }
+        else
+        {
+            _current -= _points;
+        }
     }
 }
